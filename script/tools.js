@@ -1,4 +1,4 @@
-const
+export const
     alphabetNumbers = [
         1,2,3,4,5,6,7,8,9,1,2,3,4,
         5,6,7,8,9,1,2,3,4,5,6,7,8
@@ -10,10 +10,10 @@ const
         'S','T','V','W','X','Y','Z'
     ];
 
-function number(letter) {
+export function number(letter) {
     return alphabetNumbers[letter.codePointAt()-65];
 }
-function reducted(number) {
+export function reducted(number) {
     const digits = number.toString().split('');
     
     if (digits.length == 1) {
@@ -25,7 +25,7 @@ function reducted(number) {
         return reducted(digitSum);
     }
 }
-function masterReducted(number) {
+export function masterReducted(number) {
     const digits = number.toString().split('');
     
     if (digits.length == 1) {
@@ -58,7 +58,29 @@ function masterReducted(number) {
         }
     }
 }
-function wordObjects(name) {
+
+export function nameNumber(name) {
+    const completeNumber=
+        wordObjects(name)
+            .map(word=>word.number)
+            .reduce((a,n)=>a+n)
+    
+    return{
+        completeNumber,
+        number: masterReducted(completeNumber)
+    }
+}
+export function dateNumber(dateNumber) {
+    const completeNumber=
+        dateNumber.reduce((a,n)=>a+n)
+    
+    return{
+        completeNumber,
+        number: masterReducted(completeNumber)
+    }
+}
+
+export function wordObjects(name) {
     return name.split(' ').map(word=>{
         const letterObjects = word.split('').map(letter=>({
             letter,
@@ -76,12 +98,13 @@ function wordObjects(name) {
         }
     });
 }
-function nameFilter(filter, name) {
+export function nameFilter(filter, name) {
     return name.split('').filter(letter=>
         letter == ' ' || filter.includes(letter)
     ).join('');
 }
-function pyramid(numbers,signal) {
+
+export function pyramid(numbers,signal) {
     const
         pyramidHeight = numbers.length,
         pyramidBase = numbers.length*2-1,
@@ -113,7 +136,7 @@ function pyramid(numbers,signal) {
     
     return pyramid;
 }
-function namePyramid(size,name) {
+export function namePyramid(size,name) {
     const analyzedName=
         name.replaceAll(' ','').slice(0,size).split('');
     
@@ -121,7 +144,8 @@ function namePyramid(size,name) {
         letter=>number(letter)
     ))
 }
-function pinnacles([day,month,year]){
+
+export function pinnacles([day,month,year]){
     return{
         pinnacles: [
             ...pyramid([month,day,year])
