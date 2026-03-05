@@ -8,12 +8,24 @@ const
         'B','C','D','F','G','H','J',
         'K','L','M','N','P','Q','R',
         'S','T','V','W','X','Y','Z'
-    ]
+    ];
 
 function number(letter) {
     return alphabetNumbers[letter.codePointAt()-65];
 }
 function reducted(number) {
+    const digits = number.toString().split('');
+    
+    if (digits.length == 1) {
+        return number;
+    } else {
+        const digitSum = digits.reduce(
+                (a,d)=>+d+a,0
+            );
+        return reducted(digitSum);
+    }
+}
+function masterReducted(number) {
     const digits = number.toString().split('');
     
     if (digits.length == 1) {
@@ -31,7 +43,7 @@ function reducted(number) {
             const digitSum = digits.reduce(
                 (a,d)=>+d+a,0
             );
-            return reducted(digitSum);
+            return masterReducted(digitSum);
 
         } else if ( [11,22,33,44].includes(number) ) {
 
@@ -55,8 +67,11 @@ function wordObjects(name) {
         return {
             word,
             letterObjects,
-            number: reducted(
-                letterObjects.reduce((a,o) => a+o.number, 0)
+            number: masterReducted(
+                letterObjects.reduce(
+                    (a,o) => a+o.number,
+                    0
+                )
             )
         }
     });
@@ -64,5 +79,63 @@ function wordObjects(name) {
 function nameFilter(filter, name) {
     return name.split('').filter(letter=>
         letter == ' ' || filter.includes(letter)
-    ).join('')
+    ).join('');
+}
+function pyramid(numbers,signal) {
+    const
+        pyramidHeight = numbers.length,
+        pyramidBase = numbers.length*2-1,
+        pyramid = [Array(pyramidBase).fill().map(
+            (e,index)=>
+                index%2? '': numbers[index/2]
+        )];
+    
+    if (!signal)
+        for (let i=1; i<pyramidHeight; i++) {
+            pyramid[i] = pyramid[i-1].map( (column,i,line)=>
+                column !== ''||
+                ['', undefined].includes(line[i - 1])||
+                ['', undefined].includes(line[i + 1])?
+                '':
+                reducted(line[i-1] + line[i+1])
+            )
+        }
+    else
+        for (let i=1; i<pyramidHeight; i++) {
+            pyramid[i] = pyramid[i-1].map( (column,i,line)=>
+                column !== ''||
+                ['', undefined].includes(line[i - 1])||
+                ['', undefined].includes(line[i + 1])?
+                '':
+                Math.abs(line[i-1] - line[i+1])
+            )
+        }
+    
+    return pyramid;
+}
+function namePyramid(size,name) {
+    const analyzedName=
+        name.replaceAll(' ','').slice(0,size).split('');
+    
+    return pyramid(analyzedName.map(
+        letter=>number(letter)
+    ))
+}
+function pinnacles([day,month,year]){
+    return{
+        pinnacles: [
+            ...pyramid([month,day,year])
+                .slice(1)
+                .flat()
+                .filter(number=>number),
+            reducted(month+year)
+        ],
+        challenges: [
+            ...pyramid([month,day,year],-1)
+                .slice(1)
+                .flat()
+                .filter(number=>number),
+            Math.abs(month-year)
+        ]
+    }
 }
