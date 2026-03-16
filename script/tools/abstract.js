@@ -18,9 +18,19 @@ export function nameAsObject(words) {
     });
     return {
         words: wordObjects,
+
         numberObject: convert.numberToMasterReducted(wordObjects.map(
             wordObject => wordObject.numberObject.number
-        ).join(''))
+        ).join('')),
+        
+        numberAmounts: wordObjects.reduce(
+            (a,word) => word.letters.reduce((a,letter)=>{
+                a[letter.number] = a[letter.number] + 1 || 1;
+
+                return a;
+            },a),
+            {}
+        )
     };
 }
 

@@ -29,9 +29,9 @@ document.getElementById('generateBtn')
 
             pinnacles = tools.abstract.pinnacles(birthdayObject),
             pyramid = tools.abstract.nameAsPyramid(9,analyzedName),
-            quantities = {};//desandou...
+            quantities = analyzedNameObject.numberAmounts;//desandou...
 
-        console.log({analyzedName,analyzedNameObject,nameVowelsObject,nameConsonantsObject,character,mission,personality,analyzedBirthday,birthdayObject,origin,nature,pinnacles,pyramid,quantities})
+        console.log({analyzedName,analyzedNameObject,nameVowelsObject,nameConsonantsObject,character,mission,personality,analyzedBirthday,birthdayObject,origin,nature,pinnacles,pyramid,quantities});
 
         const
             nameWords = tools.abstract.nameAsObject(analyzedName).words.map(word=>{
