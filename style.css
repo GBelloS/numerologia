@@ -4,14 +4,12 @@ body {
 .number-name {
     display: flex;
 }
-.number-name>div {
-}
 .number-name>div>div {
     display: flex;
     column-gap: 3px;
     justify-content: center;
 }
-.number-name>div>div:nth-child(2) {
+.number-name>div>div:nth-child(3) {
     color: gray;
 }
 .number-name>div>div>div {

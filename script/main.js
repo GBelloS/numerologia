@@ -1,39 +1,42 @@
 import * as tools from "./tools.js";
 
+/*
 document.getElementById('generateBtn')
-    .addEventListener('click',function(){
+    .addEventListener*/('click',function(){
         const
             analyzedName=
                 document.getElementById('name')
                     .value.toUpperCase(),
+            analyzedNameObject = tools.nameAsObject(analyzedName),
+            nameVowelsObject = tools.nameAsObject(
+                tools.filterLetters(tools.vowels, analyzedName)
+            ),
+            nameConsonantsObject = tools.nameAsObject(
+                tools.filterLetters(tools.consonants, analyzedName)
+            ),
             
-            character = tools.nameNumber(analyzedName),
-            mission = tools.nameNumber(
-                tools.nameFilter(tools.vowels, analyzedName)
-            ),
-            personality = tools.nameNumber(
-                tools.nameFilter(tools.consonants, analyzedName)
-            ),
+            character = analyzedNameObject.numberObject,
+            mission = nameVowelsObject.numberObject,
+            personality = nameConsonantsObject.numberObject,
 
             analyzedBirthday=
                 document.getElementById('birthday')
-                    .value.split('/')
-                    .map(number=>+number),
-            birthdayNumbers = analyzedBirthday.map(
-                number=>tools.masterReducted(number)
-            ),
+                    .valueAsDate,
+            birthdayObject = tools.dateAsObject(analyzedBirthday),
 
-            origin = tools.dateNumber(birthdayNumbers),
-            nature = tools.dateNumber(birthdayNumbers.slice(0,1)), //day
+            origin = birthdayObject.numberObject,
+            nature = birthdayObject.date.day.numberObject,
 
-            pinnacles = tools.pinnacles(birthdayNumbers),
-            pyramid = tools.namePyramid(9,analyzedName),
+            pinnacles = tools.pinnacles(birthdayObject),
+            pyramid = tools.nameAsPyramid(9,analyzedName),
             quantities = {};//desandou...
-        
+
+        console.log({analyzedName,analyzedNameObject,nameVowelsObject,nameConsonantsObject,character,mission,personality,analyzedBirthday,birthdayObject,origin,nature,pinnacles,pyramid,quantities})
+
         const
-            nameWords = tools.wordObjects(analyzedName).map(word=>{
+            nameWords = tools.nameAsObject(analyzedName).words.map(word=>{
                 const wordDiv = document.createElement('div');
-                wordDiv.append(...word.letterObjects.map(letter=>{
+                wordDiv.append(...word.letters.map(letter=>{
                     const
                         letterDiv = document.createElement('div'),
                         letterSpan = document.createElement('span'),
@@ -48,9 +51,11 @@ document.getElementById('generateBtn')
                 
                 const
                     div = document.createElement('div'),
-                    wordNumberDiv = document.createElement('div');
-                wordNumberDiv.innerText = word.number;
-                div.append(wordDiv,wordNumberDiv);
+                    wordNumberDiv = document.createElement('div'),
+                    wordFullNumberDiv = document.createElement('div');
+                wordFullNumberDiv.innerText = word.numberObject.completeNumber;
+                wordNumberDiv.innerText = word.numberObject.number;
+                div.append(wordDiv,wordFullNumberDiv,wordNumberDiv);
 
                 return div;
             }),
@@ -69,3 +74,4 @@ document.getElementById('generateBtn')
             }
         }))
     })
+()

@@ -10,26 +10,38 @@ export const
         'S','T','V','W','X','Y','Z'
     ];
 
-export function number(letter) {
+export function filterLetters(filter, name) {
+    return name.split('').filter(letter=>
+        letter == ' ' || filter.includes(letter)
+    ).join('');
+}
+
+export function letterToNumber(letter) {
     return alphabetNumbers[letter.codePointAt()-65];
 }
-export function reducted(number) {
-    const digits = number.toString().split('');
+export function numberToReducted(number, previousSum = null) {
+    const numberObject = {
+        completeNumber: previousSum ?? number,
+        number
+    }, digits = number.toString().split('');
     
     if (digits.length == 1) {
-        return number;
+        return numberObject;
     } else {
         const digitSum = digits.reduce(
                 (a,d)=>+d+a,0
             );
-        return reducted(digitSum);
+        return numberToReducted(digitSum, number);
     }
 }
-export function masterReducted(number) {
-    const digits = number.toString().split('');
+export function numberToMasterReducted(number, previousSum = null) {
+    const numberObject = {
+        completeNumber: previousSum ?? number,
+        number
+    }, digits = number.toString().split('');
     
     if (digits.length == 1) {
-        return number;
+        return numberObject;
     } else {
         const
             uniqueDigits = digits.filter(
@@ -37,73 +49,65 @@ export function masterReducted(number) {
             ),
             diffDigitsAmount = uniqueDigits.length;
 
-
         if (diffDigitsAmount > 1) {
-
             const digitSum = digits.reduce(
                 (a,d)=>+d+a,0
             );
-            return masterReducted(digitSum);
+            return numberToMasterReducted(digitSum, number);
 
         } else if ( [11,22,33,44].includes(number) ) {
-
-            return number;
+            return numberObject;
 
         } else {
-
             throw Error(
                 'Um novo número repetido apareceu!'
             );
-            
         }
     }
 }
 
-export function nameNumber(name) {
-    const completeNumber=
-        wordObjects(name)
-            .map(word=>word.number)
-            .reduce((a,n)=>a+n)
-    
-    return{
-        completeNumber,
-        number: masterReducted(completeNumber)
-    }
-}
-export function dateNumber(dateNumber) {
-    const completeNumber=
-        dateNumber.reduce((a,n)=>a+n)
-    
-    return{
-        completeNumber,
-        number: masterReducted(completeNumber)
-    }
-}
-
-export function wordObjects(name) {
-    return name.split(' ').map(word=>{
+export function nameAsObject(words) {
+    const wordObjects = words.split(' ').map(word=>{
         const letterObjects = word.split('').map(letter=>({
             letter,
-            number: number(letter)
+            number: letterToNumber(letter)
         }));
         return {
             word,
-            letterObjects,
-            number: masterReducted(
-                letterObjects.reduce(
-                    (a,o) => a+o.number,
-                    0
-                )
+            letters: letterObjects,
+            numberObject: numberToMasterReducted(
+                letterObjects.map(
+                    letterObject => letterObject.number
+                ).join('')
             )
-        }
+        };
     });
+    return {
+        words: wordObjects,
+        numberObject: numberToMasterReducted(wordObjects.map(
+            wordObject => wordObject.numberObject.number
+        ).join(''))
+    };
 }
-export function nameFilter(filter, name) {
-    return name.split('').filter(letter=>
-        letter == ' ' || filter.includes(letter)
-    ).join('');
+export function dateAsObject(date) {
+    const dateArray = [
+        ['day',date.getUTCDate()],
+        ['month',date.getUTCMonth()+1],
+        ['year',date.getUTCFullYear()]
+    ].map(date=>{
+        date[1] = {
+            date: date[1],
+            numberObject: numberToMasterReducted(date[1])
+        };
+        return date;
+    });
+    return {
+        date: Object.fromEntries(dateArray),
+        numberObject: numberToMasterReducted(dateArray.map(
+            date => date[1].numberObject.number
+        ).join(''))
+    };
 }
-
 export function pyramid(numbers,signal) {
     const
         pyramidHeight = numbers.length,
@@ -120,8 +124,8 @@ export function pyramid(numbers,signal) {
                 ['', undefined].includes(line[i - 1])||
                 ['', undefined].includes(line[i + 1])?
                 '':
-                reducted(line[i-1] + line[i+1])
-            )
+                numberToReducted(line[i-1] + line[i+1]).number
+            );
         }
     else
         for (let i=1; i<pyramidHeight; i++) {
@@ -131,28 +135,32 @@ export function pyramid(numbers,signal) {
                 ['', undefined].includes(line[i + 1])?
                 '':
                 Math.abs(line[i-1] - line[i+1])
-            )
+            );
         }
     
     return pyramid;
 }
-export function namePyramid(size,name) {
+export function nameAsPyramid(size,name) {
     const analyzedName=
         name.replaceAll(' ','').slice(0,size).split('');
     
     return pyramid(analyzedName.map(
-        letter=>number(letter)
-    ))
+        letter=>letterToNumber(letter)
+    ));
 }
+export function pinnacles(dateObject){
+    const
+        day = dateObject.date.day.numberObject.number,
+        month = dateObject.date.month.numberObject.number,
+        year = dateObject.date.year.numberObject.number;
 
-export function pinnacles([day,month,year]){
     return{
         pinnacles: [
             ...pyramid([month,day,year])
                 .slice(1)
                 .flat()
                 .filter(number=>number),
-            reducted(month+year)
+            numberToReducted(month+year).number
         ],
         challenges: [
             ...pyramid([month,day,year],-1)
@@ -161,5 +169,5 @@ export function pinnacles([day,month,year]){
                 .filter(number=>number),
             Math.abs(month-year)
         ]
-    }
+    };
 }
