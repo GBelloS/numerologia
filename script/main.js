@@ -7,11 +7,11 @@ document.getElementById('generateBtn')
             analyzedName=
                 document.getElementById('name')
                     .value.toUpperCase(),
-            analyzedNameObject = tools.nameAsObject(analyzedName),
-            nameVowelsObject = tools.nameAsObject(
+            analyzedNameObject = tools.abstract.nameAsObject(analyzedName),
+            nameVowelsObject = tools.abstract.nameAsObject(
                 tools.filterLetters(tools.vowels, analyzedName)
             ),
-            nameConsonantsObject = tools.nameAsObject(
+            nameConsonantsObject = tools.abstract.nameAsObject(
                 tools.filterLetters(tools.consonants, analyzedName)
             ),
             
@@ -22,19 +22,19 @@ document.getElementById('generateBtn')
             analyzedBirthday=
                 document.getElementById('birthday')
                     .valueAsDate,
-            birthdayObject = tools.dateAsObject(analyzedBirthday),
+            birthdayObject = tools.abstract.dateAsObject(analyzedBirthday),
 
             origin = birthdayObject.numberObject,
             nature = birthdayObject.date.day.numberObject,
 
-            pinnacles = tools.pinnacles(birthdayObject),
-            pyramid = tools.nameAsPyramid(9,analyzedName),
+            pinnacles = tools.abstract.pinnacles(birthdayObject),
+            pyramid = tools.abstract.nameAsPyramid(9,analyzedName),
             quantities = {};//desandou...
 
         console.log({analyzedName,analyzedNameObject,nameVowelsObject,nameConsonantsObject,character,mission,personality,analyzedBirthday,birthdayObject,origin,nature,pinnacles,pyramid,quantities})
 
         const
-            nameWords = tools.nameAsObject(analyzedName).words.map(word=>{
+            nameWords = tools.abstract.nameAsObject(analyzedName).words.map(word=>{
                 const wordDiv = document.createElement('div');
                 wordDiv.append(...word.letters.map(letter=>{
                     const
