@@ -10,18 +10,18 @@ export function nameAsObject(words) {
             word,
             letters: letterObjects,
             numberObject: convert.numberToMasterReducted(
-                letterObjects.map(
-                    letterObject => letterObject.number
-                ).join('')
+                letterObjects.reduce(
+                    (a,lo) => a+lo.number, 0
+                )
             )
         };
     });
     return {
         words: wordObjects,
 
-        numberObject: convert.numberToMasterReducted(wordObjects.map(
-            wordObject => wordObject.numberObject.number
-        ).join('')),
+        numberObject: convert.numberToMasterReducted(wordObjects.reduce(
+            (a,wo) => a+wo.numberObject.number, 0
+        )),
         
         numberAmounts: wordObjects.reduce(
             (a,word) => word.letters.reduce((a,letter)=>{

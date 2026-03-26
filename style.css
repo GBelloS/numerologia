@@ -1,18 +1,25 @@
 body {
     font-family: sans-serif;
 }
-.number-name {
+div.name-title {
     display: flex;
+
+    font-size: 1.5em;
+    margin: 0.83em 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
 }
-.number-name>div>div {
+div.reduction {
     display: flex;
-    column-gap: 3px;
     justify-content: center;
 }
-.number-name>div>div:nth-child(3) {
+div.reduction-0 {
+    column-gap: 3px;
+}
+div.reduction-2 {
     color: gray;
 }
-.number-name>div>div>div {
+div.letter-title {
     display: flex;
     flex-direction: column;
 
@@ -20,6 +27,6 @@ body {
 
     box-shadow: 1px 1px #e3e3e3;
 }
-.number-name>div>div>div>span:last-child {
+div.letter-title>span:last-child {
     color: gray;
 }

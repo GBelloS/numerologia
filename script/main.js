@@ -1,8 +1,7 @@
 import * as tools from "./tools.js";
 
-/*
 document.getElementById('generateBtn')
-    .addEventListener*/('click',function(){
+    .addEventListener('click',function(){
         const
             analyzedName=
                 document.getElementById('name')
@@ -29,41 +28,49 @@ document.getElementById('generateBtn')
 
             pinnacles = tools.abstract.pinnacles(birthdayObject),
             pyramid = tools.abstract.nameAsPyramid(9,analyzedName),
-            quantities = analyzedNameObject.numberAmounts;//desandou...
-
+            quantities = analyzedNameObject.numberAmounts;
+//Δ\\
         console.log({analyzedName,analyzedNameObject,nameVowelsObject,nameConsonantsObject,character,mission,personality,analyzedBirthday,birthdayObject,origin,nature,pinnacles,pyramid,quantities});
 
-        const
-            nameWords = tools.abstract.nameAsObject(analyzedName).words.map(word=>{
-                const wordDiv = document.createElement('div');
-                wordDiv.append(...word.letters.map(letter=>{
-                    const
-                        letterDiv = document.createElement('div'),
-                        letterSpan = document.createElement('span'),
-                        numberSpan = document.createElement('span');
+        const nameTitle = document.getElementById('analysis').appendChild(document.createElement('div'))
+        nameTitle.classList.add('name-title')
 
-                    letterSpan.innerText = letter.letter;
-                    numberSpan.innerText = letter.number;
-                    letterDiv.append(letterSpan,numberSpan);
+        const nameWords = analyzedNameObject.words.map(word=>{
+            const div = document.createElement('div');
+            div.classList.add('word-title')
 
-                    return letterDiv;
-                }));
-                
-                const
-                    div = document.createElement('div'),
-                    wordNumberDiv = document.createElement('div'),
-                    wordFullNumberDiv = document.createElement('div');
-                wordFullNumberDiv.innerText = word.numberObject.completeNumber;
-                wordNumberDiv.innerText = word.numberObject.number;
-                div.append(wordDiv,wordFullNumberDiv,wordNumberDiv);
+            const wordDiv = document.createElement('div');
+            wordDiv.classList.add('reduction','reduction-0')
+            wordDiv.append(...word.letters.map(letter=>{
+                const letterDiv = document.createElement('div');
+                letterDiv.classList.add('letter-title')
 
-                return div;
-            }),
-            h2 = document.body.appendChild(document.createElement('h2'))
-        h2.classList.add('number-name')
-        h2.append(...Array(nameWords.length*2-1).fill('&nbsp;').map((space,i)=>{
+                const letterSpan = document.createElement('span');
+                letterSpan.innerText = letter.letter;
+
+                const numberSpan = document.createElement('span');
+                numberSpan.innerText = letter.number;
+
+                letterDiv.append(letterSpan,numberSpan);
+                return letterDiv;
+            }));
+            
+            const wordFullNumberDiv = document.createElement('div');
+            wordFullNumberDiv.classList.add('reduction','reduction-1')
+            wordFullNumberDiv.innerText = word.numberObject.completeNumber;
+
+            const wordNumberDiv = document.createElement('div');
+            wordNumberDiv.classList.add('reduction','reduction-2')
+            wordNumberDiv.innerText = word.numberObject.number;
+
+            div.append(wordDiv,wordFullNumberDiv,wordNumberDiv);
+            return div;
+        });
+
+        nameTitle.append(...Array(nameWords.length*2-1).fill('&nbsp;').map((space,i)=>{
             if (i%2) {
                 const div = document.createElement('div');
+                div.classList.add('word-title')
                 div.innerHTML = `
                     <span>${space}</span>
                     <span>${space}</span>
@@ -74,4 +81,3 @@ document.getElementById('generateBtn')
             }
         }))
     })
-()
