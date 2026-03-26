@@ -1,9 +1,11 @@
+div.name-filtered,
 div.name-title {
     display: flex;
 
     margin: 0.83em 0px;
     unicode-bidi: isolate;
 }
+
 div.reduction {
     display: flex;
     justify-content: center;
@@ -17,6 +19,8 @@ div.reduction-1 {
 div.reduction-2 {
     color: #4d5e91;
 }
+
+div.letter-filtered,
 div.letter-title {
     display: flex;
     flex-direction: column;
@@ -25,7 +29,11 @@ div.letter-title {
 
     box-shadow: 1px 1px #e3e3e3;
 }
+
 div.letter-title>span:first-child {
     font-size: 1.5em;
+    font-weight: bold;
+}
+div.letter-filtered>span:first-child {
     font-weight: bold;
 }

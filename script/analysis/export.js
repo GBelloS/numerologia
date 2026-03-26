@@ -1,2 +1,3 @@
 export {name} from "./name.js";
-export {character} from "./character.js";
+export {feat} from "./feats.js";
+export {filteredName} from "./filtered-name.js";

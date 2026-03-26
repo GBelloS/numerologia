@@ -36,6 +36,11 @@ document.getElementById('generateBtn')
         const analysisDiv = document.getElementById('analysis');
         
         analysis.name(analysisDiv,analyzedNameObject);
-        analysis.character(analysisDiv,character);
+        analysis.feat(analysisDiv,character,'Caráter');
+
+        analysis.filteredName(analysisDiv,nameVowelsObject);
+        analysis.feat(analysisDiv,mission,'Missão');
         
+        analysis.filteredName(analysisDiv,nameConsonantsObject);
+        analysis.feat(analysisDiv,personality,'Personalidade');
     })
