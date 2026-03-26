@@ -1,12 +1,7 @@
-body {
-    font-family: sans-serif;
-}
 div.name-title {
     display: flex;
 
-    font-size: 1.5em;
     margin: 0.83em 0px;
-    font-weight: bold;
     unicode-bidi: isolate;
 }
 div.reduction {
@@ -16,8 +11,11 @@ div.reduction {
 div.reduction-0 {
     column-gap: 3px;
 }
+div.reduction-1 {
+    font-weight: bold;
+}
 div.reduction-2 {
-    color: gray;
+    color: #4d5e91;
 }
 div.letter-title {
     display: flex;
@@ -27,6 +25,7 @@ div.letter-title {
 
     box-shadow: 1px 1px #e3e3e3;
 }
-div.letter-title>span:last-child {
-    color: gray;
+div.letter-title>span:first-child {
+    font-size: 1.5em;
+    font-weight: bold;
 }

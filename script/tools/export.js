@@ -12,5 +12,5 @@ export function filterLetters(filter, name) {
     ).join('');
 }
 
-export * as convert from "./tools/convert.js";
-export * as abstract from "./tools/abstract.js";
+export * as convert from "./convert.js";
+export * as abstract from "./abstract.js";
