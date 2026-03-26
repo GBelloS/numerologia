@@ -1,0 +1,38 @@
+div.birthday {
+    display: flex;
+
+    margin: 0.83em 0px;
+    unicode-bidi: isolate;
+}
+
+div.date>div.reduction {
+    display: flex;
+    justify-content: center;
+}
+div.date>div.reduction-0 {
+    column-gap: 3px;
+    font-weight: bold;
+}
+div.date>div.reduction-1 {
+    font-weight: normal;
+}
+div.date>div.reduction-2 {
+    color: #4d5e91;
+}
+
+div.date {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+
+    box-shadow: 1px 1px #e3e3e3;
+}
+
+div.date>span:first-child {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+div.date>span:first-child {
+    font-weight: bold;
+}

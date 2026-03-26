@@ -43,4 +43,6 @@ document.getElementById('generateBtn')
         
         analysis.filteredName(analysisDiv,nameConsonantsObject);
         analysis.feat(analysisDiv,personality,'Personalidade');
+
+        analysis.birthday(analysisDiv,birthdayObject);
     })
