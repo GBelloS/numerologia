@@ -34,6 +34,7 @@ document.getElementById('generateBtn')
         console.log({analyzedName,analyzedNameObject,nameVowelsObject,nameConsonantsObject,character,mission,personality,analyzedBirthday,birthdayObject,origin,nature,pinnacles,pyramid,quantities});
 
         const analysisDiv = document.getElementById('analysis');
+        analysisDiv.innerHTML = ''
         
         analysis.name(analysisDiv,analyzedNameObject);
         analysis.feat(analysisDiv,character,'Caráter');
