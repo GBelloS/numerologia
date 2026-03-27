@@ -1,11 +1,12 @@
 body {
     font-family: sans-serif;
+    --gray: #4d5e91;
 }
 
 .gray {
     font-size: 1.5em;
     font-weight: bold;
-    color: #4d5e91;
+    color: var(--gray);
 }
 
 .label {

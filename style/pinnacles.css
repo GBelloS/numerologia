@@ -1,0 +1,19 @@
+table.pinnacles {
+    border-collapse: collapse;
+    text-align: center;
+}
+table.pinnacles > thead {
+    background-color: #858585;
+    color: white;
+}
+table.pinnacles > tbody > tr:nth-child(even) {
+    background-color: #dfdfdf;
+}
+table.pinnacles th,
+table.pinnacles td {
+    padding: .25rem;
+}
+table.pinnacles td:last-child {
+    font-weight: bold;
+    color: var(--gray);
+}

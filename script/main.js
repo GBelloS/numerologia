@@ -45,4 +45,8 @@ document.getElementById('generateBtn')
         analysis.feat(analysisDiv,personality,'Personalidade');
 
         analysis.birthday(analysisDiv,birthdayObject);
+        analysis.feat(analysisDiv,origin,'Origem');
+        analysis.feat(analysisDiv,nature,'Natureza');
+
+        analysis.pinnacles(analysisDiv, pinnacles, origin);
     })
